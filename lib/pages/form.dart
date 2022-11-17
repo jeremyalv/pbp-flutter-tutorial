@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutorial/main.dart';
+import 'package:tutorial/pages/to_do_page.dart';
 
 class MyFormPage extends StatefulWidget {
   const MyFormPage({super.key});
@@ -49,6 +50,16 @@ class _MyFormPageState extends State<MyFormPage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const MyFormPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('To Do'),
+              onTap: () {
+                // Route menu ke halaman to do
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ToDoPage()),
                 );
               },
             ),
@@ -102,7 +113,7 @@ class _MyFormPageState extends State<MyFormPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const ListTile(
-                        leading:  Icon(Icons.school),
+                        leading: Icon(Icons.school),
                         title: Text("Jenjang"),
                       ),
                       CheckboxListTile(
@@ -111,8 +122,9 @@ class _MyFormPageState extends State<MyFormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             jenjangSarjana = value!;
-                            if (value){
-                              jenjangMagister = jenjangDiploma = jenjangDoktor = false;
+                            if (value) {
+                              jenjangMagister =
+                                  jenjangDiploma = jenjangDoktor = false;
                             }
                           });
                         },
@@ -123,8 +135,9 @@ class _MyFormPageState extends State<MyFormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             jenjangDiploma = value!;
-                            if (value){
-                              jenjangMagister = jenjangSarjana = jenjangDoktor = false;
+                            if (value) {
+                              jenjangMagister =
+                                  jenjangSarjana = jenjangDoktor = false;
                             }
                           });
                         },
@@ -135,8 +148,9 @@ class _MyFormPageState extends State<MyFormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             jenjangMagister = value!;
-                            if (value){
-                              jenjangDiploma = jenjangSarjana = jenjangDoktor = false;
+                            if (value) {
+                              jenjangDiploma =
+                                  jenjangSarjana = jenjangDoktor = false;
                             }
                           });
                         },
@@ -147,8 +161,9 @@ class _MyFormPageState extends State<MyFormPage> {
                         onChanged: (bool? value) {
                           setState(() {
                             jenjangDoktor = value!;
-                            if (value){
-                              jenjangMagister = jenjangSarjana = jenjangDiploma = false;
+                            if (value) {
+                              jenjangMagister =
+                                  jenjangSarjana = jenjangDiploma = false;
                             }
                           });
                         },
@@ -214,66 +229,55 @@ class _MyFormPageState extends State<MyFormPage> {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
                   ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 15,
+                            child: Container(
+                              child: ListView(
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  Center(child: const Text('Informasi Data')),
+                                  SizedBox(height: 20),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Nama: $_namaLengkap"),
+                                      Text("Umur: ${umur.toInt()}"),
+                                      Text("Jenjang: $jenjangSarjana"),
+                                      Text("Kelas PBP: $kelasPBP"),
+                                      Text(
+                                          "Practice Mode: ${_nilaiSwitch ? 'Ya' : 'Tidak'}"),
+                                    ],
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Kembali'),
+                                  ),
+                                ],
                               ),
-                              elevation: 15,
-                              child: Container(
-                                child: ListView(
-                                  padding: const EdgeInsets.only(top: 20, bottom: 20),
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    Center(child: const Text('Informasi Data')),
-                                    SizedBox(height: 20),
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Nama: $_namaLengkap"
-                                        ),
-                                        Text(
-                                          "Umur: ${umur.toInt()}"
-                                        ),
-                                        Text(
-                                          "Jenjang: $jenjangSarjana"
-                                        ),
-                                        Text(
-                                          "Kelas PBP: $kelasPBP"
-                                        ),
-                                        Text(
-                                          "Practice Mode: ${_nilaiSwitch ? 'Ya' : 'Tidak'}"
-                                        ),
-                                      ],
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Kembali'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    },
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
               ],
             ),
           ),
         ),
-
       ),
     );
   }
 }
-
-
